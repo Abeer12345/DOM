@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panier</title>
+    <link rel="icon" type="image/png" href="./images/shopping-icone.jpg" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="./CSS/style.css" media="all" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Festive&family=Italianno&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <header>
+        <div>
+            <!-- <div class="search-container">
+             <form action="/action_page.php">
+              <input type="text" placeholder="Search.." name="search">
+              <button type="submit"><i class="fa fa-search"></i></button>
+            </form> 
+          </div> 
+            <i class="far fa-user-alt"></i> -->
+        </div>
+    </header>
+    <h1>Mon Panier</h1>
+
+    <section>
+        <div class="div-products">
+            <div class="product1" id="1">
+                <img src="./images/articl1.png" alt="articl" />
+                <div class="details">
+                    <h4>Sound And Play Fire Engine</h4>
+                    <h3>25.95£</h3>
+                    <i class="fas fa-heart" onclick="likes_elemnt()"></i>
+                </div>
+                <div class="div-qty">
+                    <i class="fad fa-minus-hexagon"></i>
+                    <input type="text" name="quantity" value="1" />
+                    <i class="fad fa-plus-hexagon"></i>
+                </div>
+                <i class="fas fa-trash-alt" onclick="delete_element()"></i>
+            </div>
+
+            <div class="product1">
+                <img src="./images/articl2.jpg" alt="articl" />
+                <div class="details">
+                    <h4>Dragon glouton</h4>
+                    <h3>15.36£</h3>
+                    <i class="fas fa-heart" onclick="likes_elemnt()"></i>
+                </div>
+                <div class="div-qty">
+                    <i class="fad fa-minus-hexagon"></i>
+                    <input type="text" name="quantity" value="1" />
+                    <i class="fad fa-plus-hexagon"></i>
+                </div>
+                <i class="fas fa-trash-alt" onclick="delete_element()"></i>
+            </div>
+
+            <div class="product1">
+                <img src="./images/articl3.jpg" alt="articl" />
+                <div class="details">
+                    <h4>SPop it Fidget Toy Pack, Fidget Toys Anti Stress</h4>
+                    <h3>35.5£</h3>
+                    <i class="fas fa-heart" onclick="likes_elemnt()"></i>
+                </div>
+                <div class="div-qty">
+                    <i class="fad fa-minus-hexagon"></i>
+                    <input type="text" name="quantity" value="1" />
+                    <i class="fad fa-plus-hexagon"></i>
+                </div>
+                <i class="fas fa-trash-alt" onclick="delete_element()"></i>
+            </div>
+
+            <div class="product1">
+                <img src="./images/articl4.jpg" alt="articl" />
+                <div class="details">
+                    <h4>Jouet d’éveil Clementoni Anneaux empilables</h4>
+                    <h3 class="prix" id="prix">30£</h3>
+                    <i class="fas fa-heart" onclick="likes_elemnt()"></i>
+                </div>
+                <div class="div-qty">
+                    <i class="fad fa-minus-hexagon"></i>
+                    <input type="text" name="quantity" value="1" />
+                    <i class="fad fa-plus-hexagon"></i>
+                </div>
+                <i class="fas fa-trash-alt" onclick="delete_element()"></i>
+            </div>
+        </div>
+        <div class="div-prix">
+            <p>Prix des produits : <span id='prix-produit'>106.81£</span> </p>
+            <p>Livraison : 10£</p>
+            <hr />
+            <h2>Total prix:
+                <span id='prix-produit-total'>116.81£</span>
+
+            </h2>
+
+            <button type="button" class="btn btn-warning">
+                Valider ma commande
+            </button>
+        </div>
+    </section>
+
+    <footer></footer>
+    <script>
+        var prixProduit = document.getElementById('prix-produit')
+        var prixProduitTotal = document.getElementById('prix-produit-total')
+
+        // Fonction cerer un tableau contient le prix des produits selon leurs quantité 
+        function Somme_prix() {
+            var l = document.querySelectorAll(".product1");
+            tab = [];
+            for (let index = 0; index < l.length; index++) {
+                var m = l[index].childNodes[3].childNodes[3].innerHTML;
+                var prix = parseFloat(m);
+                // console.log('child', prix)
+                var s = l[index].querySelector(".div-qty input");
+                var qun = s["value"];
+                var quantité = parseFloat(qun);
+                // console.log("qnty", quantité)
+                s = prix * quantité;
+                tab.push(s);
+            }
+            console.log("tab", tab)
+            let sum = 0;
+            for (let i = 0; i < tab.length; i++) {
+                sum += tab[i];
+            }
+            console.log('SUM', sum)
+            prixProduit.innerText = sum
+            Total_prix(sum)
+
+
+            return sum;
+        }
+        // fonction calcul le prix total (avec livraison)
+        function Total_prix(sum) {
+            Total = parseFloat(sum) + 10
+            prixProduitTotal.innerText = Total
+            return (Total)
+        }
+
+
+        // bouton décrémente la quantité de produit,
+        // dans le cas où le qnt est 1 et l'utilisateur veut le décrémenter le btn devient rouge
+        var btn_dermnt = document.getElementsByClassName("fa-minus-hexagon");
+        // console.log(btn_inc)
+        for (let i = 0; i < btn_dermnt.length; i++) {
+            btn_dermnt[i].addEventListener("click", function decrmnt(e) {
+                //    console.log( "aaa",this.nextElementSibling['value'])
+                var val = parseInt(e.target.nextElementSibling["value"]);
+                //    console.log("val",val)
+                if (val > 1) {
+                    val = parseInt(val - 1);
+                    // console.log("val",val)
+                    e.target.nextElementSibling["value"] = val;
+                    Somme_prix()
+
+                } else {
+                    e.target.style.color = "red";
+                }
+            });
+        }
+
+        // bouton incremente la quantité de produit,
+        //le qnt ne doit pas dépasser 100 et si le bouton décrément est rouge revenir à sa couleur initiale
+        var btn_inc = document.getElementsByClassName("fa-plus-hexagon");
+        for (let i = 0; i < btn_inc.length; i++) {
+            btn_inc[i].addEventListener("click", function inc(e) {
+                var elemnt_input = this.previousElementSibling;
+                color_decrmnt = elemnt_input.previousElementSibling.style.color;
+                var val = parseInt(this.previousElementSibling["value"]);
+                if (val < 100 || color_decrmnt == "red") {
+                    elemnt_input.previousElementSibling.style.color = "#9870fc";
+                    val = parseInt(val + 1);
+                    // console.log("value",val)
+                    this.previousElementSibling["value"] = val;
+                    Somme_prix()
+
+                } else {
+                    this.style.color = "red";
+                }
+            });
+
+        }
+
+    </script>
+    <script src="./JS/script.js"></script>
+</body>
+
+</html>
